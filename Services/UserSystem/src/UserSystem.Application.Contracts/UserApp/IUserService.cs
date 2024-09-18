@@ -10,5 +10,7 @@ namespace UserSystem.Application.Contracts.UserApp
     public interface IUserService : IApplicationService
     {
         Task<bool> RegisterUserAsync(UserCreateDto createInput);
+        Task<string> CheckLoginAsync(string userName, string password);
+        Task<(string token, bool isSuccess)> RefreshToken();
     }
 }

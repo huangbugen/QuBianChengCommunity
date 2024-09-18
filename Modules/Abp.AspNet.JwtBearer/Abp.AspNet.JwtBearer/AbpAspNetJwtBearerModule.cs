@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -32,7 +34,22 @@ namespace Abp.AspNet.JwtBearer
                     ValidateAudience = true,
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = true,
-                    ValidAudience = configuration.GetValue<string>("JwtAuth:Audience")
+                    ValidAudience = configuration.GetValue<string>("JwtAuth:Audience"),
+                    ValidIssuer = configuration.GetValue<string>("JwtAuth:Issuer"),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration.GetValue<string>("JwtAuth:SecurityKey")!))
+                };
+
+                options.Events = new JwtBearerEvents
+                {
+                    OnChallenge = context =>
+                    {
+                        context.HandleResponse();
+                        var payload = "{\"ret\":203,\"err\":\"无登录信息或登录信息已失效，请重新登录。\"}";
+                        context.Response.ContentType = "application/json";
+                        context.Response.StatusCode = StatusCodes.Status203NonAuthoritative;
+                        context.Response.WriteAsync(payload);
+                        return Task.FromResult(0);
+                    }
                 };
             });
             base.ConfigureServices(context);

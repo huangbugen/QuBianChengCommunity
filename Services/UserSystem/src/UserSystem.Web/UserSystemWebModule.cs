@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Abp.AspNet.JwtBearer;
 using UserSystem.Application;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
@@ -13,7 +14,8 @@ namespace UserSystem.Web
     [DependsOn(
         typeof(AbpAspNetCoreMvcModule),
         typeof(AbpAutofacModule),
-        typeof(UserSystemApplicationModule)
+        typeof(UserSystemApplicationModule),
+        typeof(AbpAspNetJwtBearerModule)
     )]
     public class UserSystemWebModule : AbpModule
     {

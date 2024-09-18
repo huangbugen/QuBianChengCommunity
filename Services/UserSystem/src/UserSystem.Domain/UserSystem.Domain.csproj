@@ -7,7 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="8.3.0" />
     <PackageReference Include="Volo.Abp.Ddd.Domain" Version="8.3.0" />
+    <PackageReference Include="Abp.AspNet.JwtBearer" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>

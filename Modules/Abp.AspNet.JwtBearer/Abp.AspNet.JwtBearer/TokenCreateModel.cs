@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core.Tokenizer;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
@@ -16,6 +18,11 @@ namespace Abp.AspNet.JwtBearer
         public string Audience { get; set; }
         public TimeSpan Ts { get; set; }
 
+        public TokenCreateModel()
+        {
+
+        }
+
         public TokenCreateModel(
             IConfiguration configuration
         )
@@ -23,6 +30,18 @@ namespace Abp.AspNet.JwtBearer
             this._configuration = configuration;
         }
 
-        
+        public string GetToken(string customerNo, params Claim[] claims)
+        {
+            var tokenCreateModel = new TokenCreateModel
+            {
+                Audience = _configuration.GetValue<string>("JwtAuth:Audience")!,
+                Issuer = _configuration.GetValue<string>("JwtAuth:Issuer")!,
+                SecurityKey = _configuration.GetValue<string>("JwtAuth:SecurityKey")!,
+                UserId = customerNo, //用户id可以从数据库中获取
+                Ts = TimeSpan.FromHours(2),
+            };
+
+            return JwtCreator.CreateToken(tokenCreateModel, claims);
+        }
     }
 }

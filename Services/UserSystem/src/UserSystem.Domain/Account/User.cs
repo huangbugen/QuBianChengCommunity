@@ -36,18 +36,18 @@ namespace UserSystem.Domain.Account
             HeadUrl = "测试";
         }
 
-        public void CreateUser(Level levelNow)
+        public void CreateUser(Level levelNow, string password)
         {
-            SetPassword();
+            SetPassword(password);
             SetUserLevel(levelNow);
         }
 
         /// <summary>
         /// 配置用户密码
         /// </summary>
-        public void SetPassword()
+        public void SetPassword(string password)
         {
-            UserPassword = new();
+            UserPassword = new(password);
             UserPassword.CreationTime = DateTime.Now;
             UserPassword.UserId = Id;
             UserPassword.IsDisuse = "F";

@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BCrypt.Net;
 using UserSystem.Domain.Account;
+using UserSystem.Domain.Shared.Enums;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 
@@ -65,12 +67,20 @@ namespace UserSystem.Domain.Manager
         /// <returns></returns>
         public async Task<User> GetLoginUser(string userNo, string password, LoginType loginType)
         {
-            User? user = await _userRepo.GetAsync(m => m.UserNo == userNo);
+            // User? user = await _userRepo.GetAsync(m => m.UserNo == userNo);
+
+            User? user = null;
+
+            user = loginType switch
+            {
+                LoginType.Email => await _userRepo.GetAsync(m => m.Email == userNo),
+                _ => await _userRepo.GetAsync(m => m.UserNo == userNo)
+            };
 
             if (user != null)
             {
                 var userPassword = await _userPasswordRepo.GetAsync(m => m.UserId == user.Id && m.IsDisuse == "F");
-                var isPwdRight = await IsPasswordRight(password, userPassword.Password);
+                var isPwdRight = IsPasswordRight(password, userPassword.Password);
                 if (isPwdRight)
                 {
                     var users = await GetUserInfo(new List<User> { user });
@@ -111,11 +121,11 @@ namespace UserSystem.Domain.Manager
             return users;
         }
 
-        private async Task<bool> IsPasswordRight(string password, string passwordHash)
+        private bool IsPasswordRight(string password, string passwordHash)
         {
             // return BCrypt.Net.BCrypt.Verify(password, passwordHash);
-            return password == passwordHash ? true : false;
-
+            // return password == passwordHash ? true : false;
+            return BCrypt.Net.BCrypt.Verify(password, passwordHash);
         }
     }
 }

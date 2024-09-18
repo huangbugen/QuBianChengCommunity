@@ -22,9 +22,31 @@ namespace UserSystem.Web.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(ValidateAntiForgeryTokenAttribute))]
         public async Task<bool> RegisterUserAsync(UserCreateDto createInput)
         {
             return await _userService.RegisterUserAsync(createInput);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<string>> CheckLogin(string userNo, string password)
+        {
+            var token = await _userService.CheckLoginAsync(userNo, password);
+            return token;
+        }
+
+        [HttpGet("RefreshToken")]
+        public async Task<ActionResult<string>> RefreshToken()
+        {
+            var res = await _userService.RefreshToken();
+            if (!res.isSuccess)
+            {
+                return Unauthorized(res.token);
+            }
+            else
+            {
+                return res.token;
+            }
         }
     }
 }
