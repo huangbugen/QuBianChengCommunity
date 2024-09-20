@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Abp.Microservice.Consul;
 using UserSystem.Application.Contracts;
 using UserSystem.EntityFrameworkCore;
 using Volo.Abp.Application;
@@ -13,8 +14,9 @@ namespace UserSystem.Application
     [DependsOn(
         typeof(AbpDddApplicationModule),
         typeof(AbpAutoMapperModule),
-        typeof(UserSystemApplicationContractsModule),
-        typeof(UserSystemEntityFrameworkCoreModule)
+        // typeof(UserSystemApplicationContractsModule),
+        typeof(UserSystemEntityFrameworkCoreModule),
+        typeof(AbpMicroserviceConsulModule)
     )]
     public class UserSystemApplicationModule : AbpModule
     {

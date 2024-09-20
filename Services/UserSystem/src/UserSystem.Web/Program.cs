@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using UserSystem.Web;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,5 +10,10 @@ var app = builder.Build();
 
 app.InitializeApplication();
 app.MapControllers();
+
+app.MapGet("/heart", () =>
+            {
+                return new OkResult();
+            });
 
 app.Run();
