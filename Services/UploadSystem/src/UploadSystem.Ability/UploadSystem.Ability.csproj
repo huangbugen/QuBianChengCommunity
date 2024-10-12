@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Youshow.Ace.Ability" Version="6.0.11" />
+    <PackageReference Include="Youshow.Ace.AutoMapper" Version="6.0.11" />
+    <PackageReference Include="Youshow.Ace.File.Upload" Version="6.0.11" />
+    <PackageReference Include="Youshow.Ace.Logger" Version="6.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UploadSystem.Domain\UploadSystem.Domain.csproj" />
+    <ProjectReference Include="..\UploadSystem.EntityFrameworkCore\UploadSystem.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\UploadSystem.Ability.Docking\UploadSystem.Ability.Docking.csproj" />
+  </ItemGroup>
+
+</Project>
