@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BBSSystem.Application\BBSSystem.Application.csproj" />
+    <ProjectReference Include="..\BBSSystem.HttpApi.Client\BBSSystem.HttpApi.Client.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BBSSystem.Web.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("bbs/[controller]")]
     public class ReplyController : ControllerBase
     {
         private readonly IReplyService _replyService;

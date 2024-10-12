@@ -22,13 +22,13 @@ namespace UserSystem.Web.Controllers
         }
 
         [HttpPost]
-        [TypeFilter(typeof(ValidateAntiForgeryTokenAttribute))]
+        // [TypeFilter(typeof(ValidateAntiForgeryTokenAttribute))]
         public async Task<bool> RegisterUserAsync(UserCreateDto createInput)
         {
             return await _userService.RegisterUserAsync(createInput);
         }
 
-        [HttpGet]
+        [HttpGet("CheckLogin")]
         public async Task<ActionResult<string>> CheckLogin(string userNo, string password)
         {
             var token = await _userService.CheckLoginAsync(userNo, password);

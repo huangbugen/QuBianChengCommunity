@@ -52,5 +52,12 @@ namespace BBSSystem.Application.PostApp
             var dtos = ObjectMapper.Map<List<PostType>, List<PostTypeDto>>(list);
             return dtos;
         }
+
+        public async Task<PostInDetailPageDto> GetPostInDetailPageDtoAsync(string postId)
+        {
+            var post = (await _postManager.GetPostsAsync(0, 1, postId)).FirstOrDefault();
+            var dto = ObjectMapper.Map<Post, PostInDetailPageDto>(post);
+            return dto;
+        }
     }
 }

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Youshow.Ace.AspNetCore.Web" Version="8.0.3" />
+    <PackageReference Include="Youshow.Ace.Container" Version="8.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BBSSystemManagement.Ability\BBSSystemManagement.Ability.csproj" />
+    <ProjectReference Include="..\BBSSystemManagement.Ability.Docking\BBSSystemManagement.Ability.Docking.csproj" />
+    <ProjectReference Include="..\BBSSystemManagement.Http.Client\BBSSystemManagement.Http.Client.csproj" />
+  </ItemGroup>
+
+</Project>

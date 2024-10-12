@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Youshow.Ace.Ability" Version="8.0.3" />
+    <PackageReference Include="Youshow.Ace.AutoMapper" Version="8.0.3" />
+    <PackageReference Include="Youshow.Ace.Logger" Version="8.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BBSSystemManagement.Domain\BBSSystemManagement.Domain.csproj" />
+    <ProjectReference Include="..\BBSSystemManagement.EntityFrameworkCore\BBSSystemManagement.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\BBSSystemManagement.Ability.Docking\BBSSystemManagement.Ability.Docking.csproj" />
+  </ItemGroup>
+
+</Project>

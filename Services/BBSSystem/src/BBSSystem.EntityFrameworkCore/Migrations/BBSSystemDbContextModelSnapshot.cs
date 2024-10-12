@@ -303,6 +303,30 @@ namespace BBSSystem.EntityFrameworkCore.Migrations
                     b.ToTable("SectionLordUserMapping");
                 });
 
+            modelBuilder.Entity("BBSSystemManagement.Domain.PostInfo.SensitiveWordsLibrary", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("LibraryFileName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("LibraryFileUrl")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SensitiveWordsLibrary");
+                });
+
             modelBuilder.Entity("BBSSystem.Domain.PostInfo.Post", b =>
                 {
                     b.HasOne("BBSSystem.Domain.PostInfo.PostType", "PostType")

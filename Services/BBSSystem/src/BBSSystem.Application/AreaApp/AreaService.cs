@@ -24,7 +24,7 @@ namespace BBSSystem.Application.AreaApp
             var areas = await AreaManager.GetAreasAsync(skip, take);
             var areaDtos = ObjectMapper.Map<List<Area>, List<AreaDto>>(areas);
 
-            var sections = await SectionManager.GetSectionsByAreaIdAsync(areaDtos.Select(m => m.Id));
+            var sections = await SectionManager.GetSectionsByAreaIdAsync(areaDtos.Select(m => m.Id).ToList());
             var sectionDtos = ObjectMapper.Map<List<Section>, List<SectionDto>>(sections);
 
             areaDtos.ForEach(m =>

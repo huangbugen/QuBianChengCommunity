@@ -20,7 +20,7 @@ namespace BBSSystem.Application.SectionApp
             var section = res.section;
             var lordNames = res.lordNames;
             var dto = ObjectMapper.Map<Section, SectionSimpleDto>(section);
-            dto.SectionLords = lordNames;
+            dto.SectionLorders = lordNames;
             return dto;
         }
     }

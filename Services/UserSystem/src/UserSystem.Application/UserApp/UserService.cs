@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Abp.AspNet.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
+using NUglify.Helpers;
 using UserSystem.Application.Contracts.UserApp;
 using UserSystem.Application.Contracts.UserApp.Dtos;
 using UserSystem.Domain.Account;
@@ -25,6 +26,7 @@ namespace UserSystem.Application.UserApp
         private readonly LevelManager _levelManager;
         private readonly TokenCreateModel _tokenCreateModel;
         private readonly IDistributedCache<UserRefreshToken> _userRefreshTokenCache;
+        private readonly IDistributedCache<UserBBSDto> _bbsCache;
         private readonly HttpContext _httpContext;
 
         public UserService(
@@ -32,13 +34,15 @@ namespace UserSystem.Application.UserApp
             LevelManager levelManager,
             TokenCreateModel tokenCreateModel,
             IHttpContextAccessor httpContextAccessor,
-            IDistributedCache<UserRefreshToken> userRefreshTokenCache
+            IDistributedCache<UserRefreshToken> userRefreshTokenCache,
+            IDistributedCache<UserBBSDto> bbsCache
         )
         {
             this._userManager = userManager;
             this._levelManager = levelManager;
             this._tokenCreateModel = tokenCreateModel;
             this._userRefreshTokenCache = userRefreshTokenCache;
+            this._bbsCache = bbsCache;
             this._httpContext = httpContextAccessor.HttpContext!;
         }
 
@@ -64,6 +68,59 @@ namespace UserSystem.Application.UserApp
             }
 
             return false;
+        }
+
+        public async Task<List<UserBBSDto>> GetUserBBSDtosAsync(params string[] userIds)
+        {
+            // 从缓存中获取数据
+            var userBBSInfoKeys = new List<string>();
+            userIds.ForEach(m => userBBSInfoKeys.Add("userBBSInfo:" + m));
+            var cacheRes = _bbsCache.GetMany(userBBSInfoKeys);
+            // 拿到缓存中存在的用户信息
+            var valueRes = cacheRes.Where(m => m.Value != null).Select(m => m.Value);
+            // 拿到缓存中不存在用户信息的Id
+            userIds = cacheRes.Where(m => m.Value == null).Select(m => m.Key[(m.Key.IndexOf(':') + 1)..]).ToArray();
+
+            var userBBSDtos = new List<UserBBSDto>();
+            if (userIds.Length > 0)
+            {
+                // 将不存在用户数据的Id拿到数据库中去获取数据
+                var users = await _userManager.GetUserAsync(userIds);
+                userBBSDtos = ObjectMapper.Map(users, userBBSDtos);
+                var userLevelIds = users.Select(m => m.UserLevelId).Distinct().ToList();
+                // 拿到UserLevel信息
+                var userLevels = await _userManager.GetLevelIdByUserLevelIdAsync(userLevelIds.ToArray());
+                // 将 UserLevel信息当前分数拼接到UserBBSDto中
+                userBBSDtos.ForEach(m =>
+                {
+                    var userLevel = userLevels.FirstOrDefault(n => n.Id == m.UserLevelId);
+                    m.CurrentIntegral = userLevel.Integral;
+                    m.LevelId = userLevel.LevelId;
+                });
+
+                // 获取所有需要的CurrentUserId
+                var levelIds = userLevels.Select(m => m.LevelId).ToList();
+                // 拿到所有的用户下一等级信息
+                var dicCurrentLevelNextLevelMapping = await _userManager.GetNextLevelByCurrentLevekAsync(levelIds.ToArray());
+                // 获取用户下一等级信息
+                userBBSDtos.ForEach(m =>
+                {
+                    var nextIntegral = dicCurrentLevelNextLevelMapping[m.LevelId].NextLevel;
+                    m.NextIntegral = nextIntegral.NeedIntegral;
+                    m.LevelName = dicCurrentLevelNextLevelMapping[m.LevelId].CurrentLevel.LevelName;
+                });
+
+                List<KeyValuePair<string, UserBBSDto>> redisValue = new List<KeyValuePair<string, UserBBSDto>>();
+                userBBSDtos.ForEach(m =>
+                {
+                    redisValue.Add(new KeyValuePair<string, UserBBSDto>($"userBBSInfo:{m.Id}", m));
+                });
+                // 将每个用户信息存入Redis
+                _bbsCache.SetMany(redisValue);
+            }
+            // 将缓存中的数据和数据库中拿到数据合并返回
+            userBBSDtos.AddRange(valueRes.ToList());
+            return userBBSDtos;
         }
 
         public async Task<string> CheckLoginAsync(string userNo, string password)

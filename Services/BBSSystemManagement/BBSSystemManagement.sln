@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4364E300-4FD7-45B0-A097-6D31E90BDE8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBSSystemManagement.Web", "src\BBSSystemManagement.Web\BBSSystemManagement.Web.csproj", "{07554E1A-E556-4D9D-99C0-EF723E479871}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBSSystemManagement.Domain", "src\BBSSystemManagement.Domain\BBSSystemManagement.Domain.csproj", "{F55C8C00-AB84-40BC-A1FA-F9B3E5C03A29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBSSystemManagement.EntityFrameworkCore", "src\BBSSystemManagement.EntityFrameworkCore\BBSSystemManagement.EntityFrameworkCore.csproj", "{662E75B3-68BF-453E-BC73-B712C8336926}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBSSystemManagement.Ability", "src\BBSSystemManagement.Ability\BBSSystemManagement.Ability.csproj", "{A8682AC7-374D-43C5-B42E-4DF8654BDDE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBSSystemManagement.Ability.Docking", "src\BBSSystemManagement.Ability.Docking\BBSSystemManagement.Ability.Docking.csproj", "{52F94584-A3CE-404B-89B0-4888583BB3AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBSSystemManagement.Http.Client", "src\BBSSystemManagement.Http.Client\BBSSystemManagement.Http.Client.csproj", "{4832AA3C-8588-47E9-9F00-3804B812441B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07554E1A-E556-4D9D-99C0-EF723E479871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07554E1A-E556-4D9D-99C0-EF723E479871}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07554E1A-E556-4D9D-99C0-EF723E479871}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07554E1A-E556-4D9D-99C0-EF723E479871}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F55C8C00-AB84-40BC-A1FA-F9B3E5C03A29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F55C8C00-AB84-40BC-A1FA-F9B3E5C03A29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F55C8C00-AB84-40BC-A1FA-F9B3E5C03A29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F55C8C00-AB84-40BC-A1FA-F9B3E5C03A29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{662E75B3-68BF-453E-BC73-B712C8336926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662E75B3-68BF-453E-BC73-B712C8336926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662E75B3-68BF-453E-BC73-B712C8336926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662E75B3-68BF-453E-BC73-B712C8336926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8682AC7-374D-43C5-B42E-4DF8654BDDE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8682AC7-374D-43C5-B42E-4DF8654BDDE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8682AC7-374D-43C5-B42E-4DF8654BDDE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8682AC7-374D-43C5-B42E-4DF8654BDDE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52F94584-A3CE-404B-89B0-4888583BB3AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52F94584-A3CE-404B-89B0-4888583BB3AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52F94584-A3CE-404B-89B0-4888583BB3AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52F94584-A3CE-404B-89B0-4888583BB3AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4832AA3C-8588-47E9-9F00-3804B812441B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4832AA3C-8588-47E9-9F00-3804B812441B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4832AA3C-8588-47E9-9F00-3804B812441B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4832AA3C-8588-47E9-9F00-3804B812441B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{07554E1A-E556-4D9D-99C0-EF723E479871} = {4364E300-4FD7-45B0-A097-6D31E90BDE8E}
+		{F55C8C00-AB84-40BC-A1FA-F9B3E5C03A29} = {4364E300-4FD7-45B0-A097-6D31E90BDE8E}
+		{662E75B3-68BF-453E-BC73-B712C8336926} = {4364E300-4FD7-45B0-A097-6D31E90BDE8E}
+		{A8682AC7-374D-43C5-B42E-4DF8654BDDE2} = {4364E300-4FD7-45B0-A097-6D31E90BDE8E}
+		{52F94584-A3CE-404B-89B0-4888583BB3AB} = {4364E300-4FD7-45B0-A097-6D31E90BDE8E}
+		{4832AA3C-8588-47E9-9F00-3804B812441B} = {4364E300-4FD7-45B0-A097-6D31E90BDE8E}
+	EndGlobalSection
+EndGlobal

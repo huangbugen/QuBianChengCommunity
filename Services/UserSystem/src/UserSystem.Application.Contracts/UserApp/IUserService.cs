@@ -12,5 +12,6 @@ namespace UserSystem.Application.Contracts.UserApp
         Task<bool> RegisterUserAsync(UserCreateDto createInput);
         Task<string> CheckLoginAsync(string userName, string password);
         Task<(string token, bool isSuccess)> RefreshToken();
+        Task<List<UserBBSDto>> GetUserBBSDtosAsync(params string[] userIds);
     }
 }

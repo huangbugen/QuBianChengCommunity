@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BBSSystem.Web.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("bbs/[controller]")]
     public class AreaController : ControllerBase
     {
         private readonly IAreaService _areaService;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BCrypt.Net;
+using Microsoft.EntityFrameworkCore;
 using UserSystem.Domain.Account;
 using UserSystem.Domain.Shared.Enums;
 using Volo.Abp.Domain.Repositories;
@@ -16,21 +17,62 @@ namespace UserSystem.Domain.Manager
         private readonly IRepository<UserLevel> _userLevelRepo;
         private readonly IRepository<UserRoleMapping> _userRoleMappingRepo;
         private readonly IRepository<Role> _roleRepo;
+        private readonly IRepository<Level> _levelRepo;
         private readonly IRepository<UserPassword> _userPasswordRepo;
+
+        public IQueryable<UserLevel> UserLevelQueryable => _userLevelRepo.GetQueryableAsync().Result;
 
         public UserManager(
             IRepository<User> userRepo,
             IRepository<UserPassword> userPasswordRepo,
             IRepository<UserLevel> userLevelRepo,
             IRepository<UserRoleMapping> userRoleMappingRepo,
-            IRepository<Role> roleRepo
+            IRepository<Role> roleRepo,
+            IRepository<Level> levelRepo
         )
         {
             this._userRepo = userRepo;
             this._userLevelRepo = userLevelRepo;
             this._userRoleMappingRepo = userRoleMappingRepo;
             this._roleRepo = roleRepo;
+            this._levelRepo = levelRepo;
             this._userPasswordRepo = userPasswordRepo;
+        }
+
+        /// <summary>
+        /// 跟据用户Id获取用户信息
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public async Task<List<User>> GetUserAsync(params string[] userId)
+        {
+            // WHERE IN
+            var users = await _userRepo.GetListAsync(m => userId.Contains(m.Id));
+            return await GetUserInfo(users);
+        }
+
+        public async Task<List<UserLevel>> GetLevelIdByUserLevelIdAsync(params string[] userLevelIds)
+        {
+            var levels = await UserLevelQueryable.Where(m => userLevelIds.Contains(m.Id)).ToListAsync();
+            return levels;
+        }
+
+        public async Task<Dictionary<string, NextLevelInfo>> GetNextLevelByCurrentLevekAsync(params string[] currentLevelIds)
+        {
+            Dictionary<string, NextLevelInfo> dicCurrnetLevelMapping = new Dictionary<string, NextLevelInfo>();
+            var levels = (await _levelRepo.GetListAsync()).OrderBy(m => m.NeedIntegral);
+            foreach (var currentLevelId in currentLevelIds)
+            {
+                var currentLevel = levels.FirstOrDefault(m => m.Id == currentLevelId);
+                var nextLevel = levels.FirstOrDefault(m => m.NeedIntegral > currentLevel.NeedIntegral);
+                dicCurrnetLevelMapping.Add(currentLevelId, new NextLevelInfo
+                {
+                    CurrentLevel = currentLevel,
+                    NextLevel = nextLevel
+                });
+            }
+
+            return dicCurrnetLevelMapping;
         }
 
         public async Task<bool> HasUserNoAsync(string userNo)
@@ -126,6 +168,12 @@ namespace UserSystem.Domain.Manager
             // return BCrypt.Net.BCrypt.Verify(password, passwordHash);
             // return password == passwordHash ? true : false;
             return BCrypt.Net.BCrypt.Verify(password, passwordHash);
+        }
+
+        public class NextLevelInfo
+        {
+            public Level CurrentLevel { get; set; }
+            public Level NextLevel { get; set; }
         }
     }
 }

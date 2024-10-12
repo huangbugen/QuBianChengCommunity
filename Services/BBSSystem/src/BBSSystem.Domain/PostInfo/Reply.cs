@@ -41,17 +41,20 @@ namespace BBSSystem.Domain.PostInfo
             UserId = currentClaims.UserId;
             UserName = currentClaims.UserName;
             HeadUrl = currentClaims.HeadUrl;
+            // UserId = "currentClaims.UserId";
+            // UserName = "currentClaims.UserName";
+            // HeadUrl = "currentClaims.HeadUrl";
             IsClose = "F";
         }
 
-        public void InitReplay(bool isMaster)
-        {
-            SetIsMasterValue(isMaster);
-            UserId = "123456";
-            UserName = "黄步根";
-            HeadUrl = "http";
-            IsClose = "F";
-        }
+        // public void InitReplay(bool isMaster)
+        // {
+        //     SetIsMasterValue(isMaster);
+        //     UserId = "123456";
+        //     UserName = "黄步根";
+        //     HeadUrl = "http";
+        //     IsClose = "F";
+        // }
 
         public void SetIsMasterValue(bool isMaster)
         {

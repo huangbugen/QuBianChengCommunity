@@ -13,6 +13,7 @@ namespace UserSystem.Application
         public UserSystemProfile()
         {
             CreateMap<UserCreateDto, User>().ConstructUsing((dto, ctx) => new User(Guid.NewGuid().ToString("N")));
+            CreateMap<User, UserBBSDto>();
         }
     }
 }

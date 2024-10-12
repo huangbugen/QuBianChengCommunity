@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BBSSystem.Domain.PostInfo;
+using BBSSystemManagement.Domain.PostInfo;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ namespace BBSSystem.EntityFrameworkCore
         public DbSet<Post> Post { get; set; }
         public DbSet<PostType> PostType { get; set; }
         public DbSet<Reply> Reply { get; set; }
+        public DbSet<SensitiveWordsLibrary> SensitiveWordsLibrary { get; set; }
         public BBSSystemDbContext(DbContextOptions<BBSSystemDbContext> options) : base(options)
         {
         }

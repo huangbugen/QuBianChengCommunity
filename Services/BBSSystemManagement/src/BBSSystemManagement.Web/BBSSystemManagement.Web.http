@@ -1,0 +1,6 @@
+@BBSSystemManagement.Web_HostAddress = http://localhost:5187
+
+GET {{BBSSystemManagement.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -26,6 +26,8 @@ namespace BBSSystem.Application
             CreateMap<PostType, PostTypeDto>();
             CreateMap<ReplyCreateOnlyDto, Reply>().ConstructUsing(m => new Reply(Guid.NewGuid().ToString("N")));
             CreateMap<ReplyUpdateContentDto, Reply>();
+            CreateMap<Post, PostInDetailPageDto>().ForMember(dest => dest.PostTypeName, opts => opts.MapFrom(src => src.PostType.PostTypeName));
+            CreateMap<Reply, ReplyDto>();
         }
     }
 }

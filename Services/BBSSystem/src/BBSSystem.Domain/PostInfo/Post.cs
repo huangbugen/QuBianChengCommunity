@@ -37,29 +37,33 @@ namespace BBSSystem.Domain.PostInfo
         public string IsReview { get; set; } = "T";
         public PostType PostType { get; set; }
 
-        public void InitPost()
-        {
-            CreateUserId = "123456";
-            CreateUserName = "黄步根";
-            CreateDate = DateTime.Now;
-            LastReplyUserId = "123456";
-            LastReplyUserName = "黄步根";
-            LastReplyDate = CreateDate;
-            BrowseTimes = 0;
-            ReplyTimes = 0;
-            PostLevelId = "";
-            TopTypeId = "";
-            IsClose = "F";
-            CloseUserId = "";
-        }
+        // public void InitPost(ICurrentClaims claims)
+        // {
+        //     CreateUserId = claims.UserId;
+        //     CreateUserName = claims.UserName;
+        //     CreateDate = DateTime.Now;
+        //     LastReplyUserId = claims.UserId;
+        //     LastReplyUserName = claims.UserName;
+        //     LastReplyDate = CreateDate;
+        //     BrowseTimes = 0;
+        //     ReplyTimes = 0;
+        //     PostLevelId = "";
+        //     TopTypeId = "";
+        //     IsClose = "F";
+        //     CloseUserId = "";
+        // }
 
         public void InitPost(ICurrentClaims claims)
         {
             CreateUserId = claims.UserId;
+            // CreateUserId = "claims.UserId";
             CreateUserName = claims.UserName;
+            // CreateUserName = "claims.UserName";
             CreateDate = DateTime.Now;
             LastReplyUserId = claims.UserId;
+            // LastReplyUserId = "claims.UserId";
             LastReplyUserName = claims.UserName;
+            // LastReplyUserName = "claims.UserName";
             LastReplyDate = CreateDate;
             BrowseTimes = 0;
             ReplyTimes = 0;

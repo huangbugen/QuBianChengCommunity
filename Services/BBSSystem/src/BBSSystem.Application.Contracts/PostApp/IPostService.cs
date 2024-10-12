@@ -13,5 +13,6 @@ namespace BBSSystem.Application.Contracts.PostApp
         Task<PostDto> AddPostAsync(PostCreateDto createDto);
         Task<ListDto<PostListDisplayDto>> GetPostListDisplayDtosAsync(string sectionId, string? typeId, int pageIndex, int pageSize);
         Task<List<PostTypeDto>> GetPostTypeDtoAsync(string sectionId);
+        Task<PostInDetailPageDto> GetPostInDetailPageDtoAsync(string postId);
     }
 }

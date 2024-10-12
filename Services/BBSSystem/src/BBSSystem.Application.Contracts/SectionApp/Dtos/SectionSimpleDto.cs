@@ -16,6 +16,6 @@ namespace BBSSystem.Application.Contracts.SectionApp.Dtos
         public long PostAllCount { get; set; }
         public long PostTodayCount { get; set; }
         public string PostTypeInfo { get; set; }
-        public List<string> SectionLords { get; set; }
+        public List<string> SectionLorders { get; set; }
     }
 }
